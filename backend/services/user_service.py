@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from ..repositories.user_repository import UserRepository
 from ..schemas.user import UserResponse, UserCreate
 from fastapi import HTTPException, status
@@ -23,6 +23,10 @@ class UserService:
                 detail=f"User with username {username} not found"
             )
         return UserResponse.model_validate(user)
+    
+    def get_user_by_username_optional(self, username: str) -> Optional[UserResponse]:
+        user = self.repository.get_by_username(username)
+        return UserResponse.model_validate(user) if user else None
     
 
     def create_user(self, user_data: UserCreate) -> UserResponse:

@@ -5,7 +5,7 @@ from ..schemas.user import UserCreate
 
 
 class UserRepository:
-    def __init__(self, db, Session):
+    def __init__(self, db: Session):
         self.db = db
     
 
@@ -18,7 +18,7 @@ class UserRepository:
     
     
     def get_by_username(self, username: str) -> Optional[User]:
-        return self.db.query(User).filter(User.username == username)
+        return self.db.query(User).filter(User.username == username).first()
     
 
     def create(self, user_data: UserCreate) -> User:
