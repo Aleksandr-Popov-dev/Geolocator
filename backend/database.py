@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from .config import settings
 
+print(f"Connecting to database: {settings.db_url}")
 
 database_url = settings.db_url
 
