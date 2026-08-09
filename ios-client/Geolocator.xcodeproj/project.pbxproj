@@ -29,9 +29,22 @@
 		FAA06F522FFECBB40005CB5C /* GeolocatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeolocatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FAA07092302612EF0005CB5C /* Exceptions for "Geolocator" folder in "Geolocator" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FAA06F3A2FFECBB20005CB5C /* Geolocator */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FAA06F3D2FFECBB20005CB5C /* Geolocator */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FAA07092302612EF0005CB5C /* Exceptions for "Geolocator" folder in "Geolocator" target */,
+			);
 			path = Geolocator;
 			sourceTree = "<group>";
 		};
@@ -397,6 +410,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Geolocator/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Приложению нужен постоянный доступ к вашему местоположению для отслеживания";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Приложению нужен доступ к вашему местоположению";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +444,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Geolocator/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Приложению нужен постоянный доступ к вашему местоположению для отслеживания";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Приложению нужен доступ к вашему местоположению";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

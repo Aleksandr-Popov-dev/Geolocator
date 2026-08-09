@@ -20,12 +20,20 @@ final class AppDIContainer {
         return KeychainTokenStorage()
     }()
     
+    private lazy var locationManager: LocationManagerProtocol = {
+        return LocationManager()
+    }()
+    
     // MARK: - Repositories
     private lazy var authRepository: AuthRepositoryProtocol = {
         return AuthRepository(
             networkService: networkService,
             tokenStorage: tokenStorage
         )
+    }()
+    
+    private lazy var locationRepository: LocationRepositoryProtocol = {
+        return LocationRepository(locationManager: locationManager)
     }()
     
     // MARK: - Use Cases
@@ -36,6 +44,27 @@ final class AppDIContainer {
     private lazy var loginUserUseCase: LoginUserUseCase = {
         return LoginUserUseCase(authRepository: authRepository)
     }()
+    
+    private lazy var requestPermissionUseCase: RequestPermissionUseCase = {
+        return RequestPermissionUseCase(locationRepository: locationRepository)
+    }()
+    
+    private lazy var getCurrentLocationUseCase: GetCurrentLocationUseCase = {
+        return GetCurrentLocationUseCase(locationRepository: locationRepository)
+    }()
+    
+    private lazy var startTrackingLocationUseCase: StartTrackingLocationUseCase = {
+        return StartTrackingLocationUseCase(locationRepository: locationRepository)
+    }()
+    
+    private lazy var updateUserLocationUseCase: UpdateUserLocationUseCase = {
+        return UpdateUserLocationUseCase(locationRepository: locationRepository)
+    }()
+    
+    private lazy var saveUserLocationUseCase: SaveUserLocationUseCase = {
+        return SaveUserLocationUseCase()
+    }()
+    
     
     // MARK: - View Models
     func makeRegisterViewModel(onRegisterSuccess: @escaping (User) -> Void) -> RegisterViewModel {
@@ -54,7 +83,14 @@ final class AppDIContainer {
     }
     
     func makeHomeViewModel(user: User) -> HomeViewModel {
-        return HomeViewModel(user: user)
+        return HomeViewModel(
+            user: user,
+            requestRermissionUseCase: requestPermissionUseCase,
+            getCurrentLocationUseCase: getCurrentLocationUseCase,
+            startTrackingLocationUseCase: startTrackingLocationUseCase,
+            updateUserLocationUseCase: updateUserLocationUseCase,
+            saveUserLocationUseCase: saveUserLocationUseCase
+        )
     }
     
 }

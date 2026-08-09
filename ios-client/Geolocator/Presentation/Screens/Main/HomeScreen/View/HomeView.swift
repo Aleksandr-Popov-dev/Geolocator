@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
@@ -15,6 +16,29 @@ struct HomeView: View {
     }
     
     var body: some View {
-        Text("Hello \(viewModel.user.fullname)")
+        VStack {
+            if let location = viewModel.currentLocation {
+                Map(initialPosition: .region(MKCoordinateRegion(
+                            center: location.coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                ))) {
+                    UserAnnotation()
+                }
+                .mapControls {
+                    MapUserLocationButton()
+                }
+            } else {
+                Text("Получение разрешения")
+            }
+            
+        }
+        .task {
+            await viewModel.startTracking()
+        }
+        .alert("Ошибка", isPresented: $viewModel.showError) {
+            Button("OK") { }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }
