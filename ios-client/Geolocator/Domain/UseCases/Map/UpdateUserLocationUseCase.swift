@@ -39,7 +39,6 @@ final class UpdateUserLocationUseCase: UpdateUserLocationUseCaseProtocol {
                     
                     for await location in self.locationRepository.locationUpdates {
                         continuation.yield(location)
-                        print("[Use Case]: newloc: \(location)")
                     }
                 } catch {
                     continuation.finish()

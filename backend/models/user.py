@@ -12,5 +12,7 @@ class User(Base):
     email = Column(String(100), unique=True, nullable=False, index=True)
     password = Column(String(255), nullable=False)  
 
+    locations = relationship("Location", back_populates="user", cascade="all, delete-orphan")
+
     def __repr__(self):
         return f"<User {self.username}>"

@@ -10,9 +10,11 @@ import Foundation
 final class LocationRepository: LocationRepositoryProtocol {
     
     private let locationManager: LocationManagerProtocol
+    private let networkService: NetworkServiceProtocol
     
-    init(locationManager: LocationManagerProtocol) {
+    init(locationManager: LocationManagerProtocol, networkService: NetworkServiceProtocol) {
         self.locationManager = locationManager
+        self.networkService = networkService
     }
     
     func requestPermission() async throws -> LocationPermissionStatus {
@@ -31,6 +33,16 @@ final class LocationRepository: LocationRepositoryProtocol {
         locationManager.stopTracking()
     }
     
+    // MARK: - Network
+    func updateLocation(location: Location) async throws {
+        let endpoint = APIEndpoints.updateLocation(location: location)
+        
+        let response: LocationResponseDTO = try await networkService.request(endpoint)
+        let loc = response.toDomain()
+        print("loc: \(loc)")
+    }
+    
+    // MARK: - State
     var currentLocation: Location? {
         locationManager.currentLocation
     }

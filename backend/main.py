@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from .config import settings
 from .database import init_db
 from .routes import router
+from .routes import locations
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,6 +28,7 @@ app.add_middleware(
 
 
 app.include_router(router)
+app.include_router(locations.router)
 
 @app.get("/")
 def root():

@@ -23,8 +23,8 @@ final class AuthRepository: AuthRepositoryProtocol {
             password: password
         )
         
-        let resonse: LoginResponseDTO = try await networkService.request(endpoint)
-        let (user, token) = resonse.toDomain()
+        let response: LoginResponseDTO = try await networkService.request(endpoint)
+        let (user, token) = response.toDomain()
         
         if let token = token {
             try tokenStorage.saveToken(token)

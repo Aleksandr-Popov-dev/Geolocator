@@ -33,7 +33,10 @@ final class AppDIContainer {
     }()
     
     private lazy var locationRepository: LocationRepositoryProtocol = {
-        return LocationRepository(locationManager: locationManager)
+        return LocationRepository(
+            locationManager: locationManager,
+            networkService: networkService
+        )
     }()
     
     // MARK: - Use Cases
@@ -62,7 +65,7 @@ final class AppDIContainer {
     }()
     
     private lazy var saveUserLocationUseCase: SaveUserLocationUseCase = {
-        return SaveUserLocationUseCase()
+        return SaveUserLocationUseCase(locationRepository: locationRepository)
     }()
     
     

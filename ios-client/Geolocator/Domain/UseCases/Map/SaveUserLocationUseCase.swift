@@ -13,8 +13,13 @@ protocol SaveUserLocationUseCaseProtocol {
 
 final class SaveUserLocationUseCase: SaveUserLocationUseCaseProtocol {
     
+    private let locationRepository: LocationRepositoryProtocol
+    
+    init(locationRepository: LocationRepositoryProtocol) {
+        self.locationRepository = locationRepository
+    }
     
     func execute(location: Location) async throws {
-        print("save location: \(location)")
+        try await locationRepository.updateLocation(location: location)
     }
 }

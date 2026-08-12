@@ -39,4 +39,19 @@ struct APIEndpoints {
             queryItems: nil
         )
     }
+    
+    static func updateLocation(location: Location) -> Endpoint {
+        let request = LocationRequestDTO(
+            latitude: location.latitude,
+            longitude: location.longitude
+        )
+        
+        return Endpoint(
+            path: "/api/locations/update",
+            method: .post,
+            headers: nil,
+            body: request,
+            queryItems: nil
+        )
+    }
 }
