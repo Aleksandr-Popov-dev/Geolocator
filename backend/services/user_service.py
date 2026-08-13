@@ -32,7 +32,7 @@ class UserService:
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"User with username {username} not found"
+                detail=f"User with user_id {user_id} not found"
             )
         return UserResponse.model_validate(user)
     

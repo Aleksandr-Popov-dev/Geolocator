@@ -19,10 +19,6 @@ struct RegisterRequestDTO: Encodable {
     let password: String
 }
 
-struct GetUserByIdRequestDTO: Encodable {
-    let user_id: Int
-}
-
 struct AuthResponseDTO: Decodable {
     let id: Int
     let username: String

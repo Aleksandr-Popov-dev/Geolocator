@@ -43,8 +43,6 @@ struct APIEndpoints {
     }
     
     static func getUserById(userId: Int) -> Endpoint {
-//        let request = GetUserByIdRequestDTO(user_id: userId)
-        
         return Endpoint(
             path: "/auth/getUser/byId/\(userId)",
             method: .get,
