@@ -12,7 +12,6 @@ struct LocationRequestDTO: Encodable {
     let longitude: Double
 }
 
-
 struct LocationResponseDTO: Decodable {
     let id: Int
     let user_id: Int

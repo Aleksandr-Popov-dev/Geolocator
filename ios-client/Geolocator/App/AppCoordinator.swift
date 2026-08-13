@@ -12,6 +12,7 @@ enum AppScreen {
     case register
     case login
     case home
+    case friends
 }
 
 @MainActor
@@ -33,6 +34,10 @@ final class AppCoordinator: ObservableObject {
     
     func navigateToLogin() {
         currentScreen = .login
+    }
+    
+    func navigateToFriendsView() {
+        currentScreen = .friends
     }
     
     // MARK: - View Builders
@@ -62,11 +67,22 @@ final class AppCoordinator: ObservableObject {
     @ViewBuilder
     func buildHomeView() -> some View {
         if let user = currentUser {
-            let viewModel = container.makeHomeViewModel(user: user)
+            let viewModel = container.makeHomeViewModel(
+                user: user,
+                goToFriendsView: { [weak self] in
+                    self?.navigateToFriendsView()
+                }
+            )
             HomeView(viewModel: viewModel)
         } else {
             buildRegisterView()
         }
+    }
+    
+    @ViewBuilder
+    func buildFriendView() -> some View {
+        let viewModel = container.makeFriendsViewModel()
+        FriendsView(viewModel: viewModel)
     }
 
     

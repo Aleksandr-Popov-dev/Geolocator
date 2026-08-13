@@ -16,7 +16,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack {
+        ZStack {
             if let location = viewModel.currentLocation {
                 Map(initialPosition: .region(MKCoordinateRegion(
                             center: location.coordinate,
@@ -27,6 +27,10 @@ struct HomeView: View {
                 .mapControls {
                     MapUserLocationButton()
                 }
+                Button("friend") {
+                    viewModel.goToFriendViewButtonTapped()
+                }
+                .buttonStyle(.borderedProminent)
             } else {
                 Text("Получение разрешения")
             }

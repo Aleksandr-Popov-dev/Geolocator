@@ -39,6 +39,10 @@ final class AppDIContainer {
         )
     }()
     
+    private lazy var friendsRepository: FriendsRepositoryProtocol = {
+        return FriendsRepository(networkService: networkService)
+    }()
+    
     // MARK: - Use Cases
     private lazy var registerUserUseCase: RegisterUserUseCase = {
         return RegisterUserUseCase(authRepository: authRepository)
@@ -68,6 +72,14 @@ final class AppDIContainer {
         return SaveUserLocationUseCase(locationRepository: locationRepository)
     }()
     
+    private lazy var sendFriendRequestUseCase: SendFriendRequestUseCase = {
+        return SendFriendRequestUseCase(friendsRepository: friendsRepository)
+    }()
+    
+    private lazy var getPendingRequestsUseCase: GetPendingRequestsUseCase = {
+        return GetPendingRequestsUseCase(friendsRepository: friendsRepository)
+    }()
+    
     
     // MARK: - View Models
     func makeRegisterViewModel(onRegisterSuccess: @escaping (User) -> Void) -> RegisterViewModel {
@@ -85,14 +97,22 @@ final class AppDIContainer {
         )
     }
     
-    func makeHomeViewModel(user: User) -> HomeViewModel {
+    func makeHomeViewModel(user: User, goToFriendsView: @escaping () -> Void) -> HomeViewModel {
         return HomeViewModel(
             user: user,
             requestRermissionUseCase: requestPermissionUseCase,
             getCurrentLocationUseCase: getCurrentLocationUseCase,
             startTrackingLocationUseCase: startTrackingLocationUseCase,
             updateUserLocationUseCase: updateUserLocationUseCase,
-            saveUserLocationUseCase: saveUserLocationUseCase
+            saveUserLocationUseCase: saveUserLocationUseCase,
+            goToFriendsView: goToFriendsView
+        )
+    }
+    
+    func makeFriendsViewModel() -> FriendsViewModel {
+        return FriendsViewModel(
+            sendFriendRequestUseCase: sendFriendRequestUseCase,
+            getPendingRequestsUseCase: getPendingRequestsUseCase
         )
     }
     

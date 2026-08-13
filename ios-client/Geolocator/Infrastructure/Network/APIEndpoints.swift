@@ -8,6 +8,8 @@
 import Foundation
 
 struct APIEndpoints {
+    
+    // MARK: - Auth
     static func register(username: String, fullname: String, email: String, password: String) -> Endpoint {
         let request = RegisterRequestDTO(
             username: username,
@@ -40,6 +42,7 @@ struct APIEndpoints {
         )
     }
     
+    // MARK: - Location
     static func updateLocation(location: Location) -> Endpoint {
         let request = LocationRequestDTO(
             latitude: location.latitude,
@@ -51,6 +54,29 @@ struct APIEndpoints {
             method: .post,
             headers: nil,
             body: request,
+            queryItems: nil
+        )
+    }
+    
+    // MARK: - Friends
+    static func sendFriendRequest(user_id: Int) -> Endpoint {
+        let request = SendFriendRequestRequestDTO(user_id: user_id)
+        
+        return Endpoint(
+            path: "/api/friends/request/\(user_id)",
+            method: .post,
+            headers: nil,
+            body: request,
+            queryItems: nil
+        )
+    }
+    
+    static func getPengingRequests() -> Endpoint {
+        return Endpoint(
+            path: "/api/friends/requests",
+            method: .get,
+            headers: nil,
+            body: nil,
             queryItems: nil
         )
     }

@@ -30,7 +30,7 @@ final class NetworkService: NetworkServiceProtocol {
         
         if let token = try? tokenStorage.getToken() {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            print("token in request")
+//            print("token in request")
         }
         
         endpoint.headers?.forEach { key, value in

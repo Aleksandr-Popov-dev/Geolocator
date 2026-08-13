@@ -11,6 +11,7 @@ class Location(Base):
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
 
+    # Relationships
     user = relationship("User", back_populates="locations")
 
     def __repr__(self):

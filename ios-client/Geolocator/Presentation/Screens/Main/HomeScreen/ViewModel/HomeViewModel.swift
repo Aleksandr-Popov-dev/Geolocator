@@ -25,6 +25,7 @@ final class HomeViewModel: ObservableObject {
     private let updateUserLocationUseCase: UpdateUserLocationUseCase
     private let saveUserLocationUseCase: SaveUserLocationUseCase
     private var locationTask: Task<Void, Never>?
+    private let goToFriendsView: () -> Void
     
     // MARK: - Init
     init(
@@ -33,7 +34,8 @@ final class HomeViewModel: ObservableObject {
         getCurrentLocationUseCase: GetCurrentLocationUseCase,
         startTrackingLocationUseCase: StartTrackingLocationUseCase,
         updateUserLocationUseCase: UpdateUserLocationUseCase,
-        saveUserLocationUseCase: SaveUserLocationUseCase
+        saveUserLocationUseCase: SaveUserLocationUseCase,
+        goToFriendsView: @escaping () -> Void
     ) {
         self.user = user
         self.requestRermissionUseCase = requestRermissionUseCase
@@ -41,6 +43,7 @@ final class HomeViewModel: ObservableObject {
         self.startTrackingLocationUseCase = startTrackingLocationUseCase
         self.updateUserLocationUseCase = updateUserLocationUseCase
         self.saveUserLocationUseCase = saveUserLocationUseCase
+        self.goToFriendsView = goToFriendsView
     }
     
     // MARK: - Public Methods
@@ -82,5 +85,10 @@ final class HomeViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             showError = true
         }
+    }
+    
+    // MARK: - Button Actions
+    func goToFriendViewButtonTapped() {
+        goToFriendsView()
     }
 }

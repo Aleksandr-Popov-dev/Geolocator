@@ -20,6 +20,8 @@ struct GeolocatorApp: App {
                     coordinator.buildLoginView()
                 case .home:
                     coordinator.buildHomeView()
+                case .friends:
+                    coordinator.buildFriendView()
                 }
             }
         }

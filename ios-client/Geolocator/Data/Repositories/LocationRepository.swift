@@ -39,7 +39,7 @@ final class LocationRepository: LocationRepositoryProtocol {
         
         let response: LocationResponseDTO = try await networkService.request(endpoint)
         let loc = response.toDomain()
-        print("loc: \(loc)")
+//        print("loc: \(loc)")
     }
     
     // MARK: - State

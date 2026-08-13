@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..services.location_service import LocationService
+from ..services.friendship_service import FriendshipService
 from ..schemas.location import LocationCreate, LocationResponse
 from ..services.auth_dependency import get_current_user
 from ..models.user import User
@@ -41,6 +42,13 @@ def get_user_location(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    friendship_service = FriendshipService(db)
+    if not friendship_service.are_friends(current_user.id, user_id):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only view locations of your friends"
+        )
+
     service = LocationService(db)
     location = service.get_location(user_id)
     if not location:
