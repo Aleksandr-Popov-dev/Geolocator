@@ -12,4 +12,7 @@ struct FriendRequest {
     let senderId: Int
     let receiverId: Int
     let status: FriendRequestStatus
+    
+    var sender: User?
+    var receiver: User?
 }

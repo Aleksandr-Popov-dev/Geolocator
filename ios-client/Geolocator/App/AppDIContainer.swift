@@ -80,6 +80,10 @@ final class AppDIContainer {
         return GetPendingRequestsUseCase(friendsRepository: friendsRepository)
     }()
     
+    private lazy var getUserByIdUseCase: GetUserByIdUseCase = {
+        return GetUserByIdUseCase(authRepository: authRepository)
+    }()
+    
     
     // MARK: - View Models
     func makeRegisterViewModel(onRegisterSuccess: @escaping (User) -> Void) -> RegisterViewModel {
@@ -112,7 +116,8 @@ final class AppDIContainer {
     func makeFriendsViewModel() -> FriendsViewModel {
         return FriendsViewModel(
             sendFriendRequestUseCase: sendFriendRequestUseCase,
-            getPendingRequestsUseCase: getPendingRequestsUseCase
+            getPendingRequestsUseCase: getPendingRequestsUseCase,
+            getUserByIdUseCase: getUserByIdUseCase
         )
     }
     

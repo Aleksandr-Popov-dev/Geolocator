@@ -21,15 +21,17 @@ class FriendsViewModel: ObservableObject {
     // MARK: - Dependenciets
     private let sendFriendRequestUseCase: SendFriendRequestUseCase
     private let getPendingRequestsUseCase: GetPendingRequestsUseCase
-    
+    private let getUserByIdUseCase: GetUserByIdUseCase
     
     // MARK: - Init
     init (
         sendFriendRequestUseCase: SendFriendRequestUseCase,
-        getPendingRequestsUseCase: GetPendingRequestsUseCase
+        getPendingRequestsUseCase: GetPendingRequestsUseCase,
+        getUserByIdUseCase: GetUserByIdUseCase
     ) {
         self.sendFriendRequestUseCase = sendFriendRequestUseCase
         self.getPendingRequestsUseCase = getPendingRequestsUseCase
+        self.getUserByIdUseCase = getUserByIdUseCase
     }
     
     // MARK: - Public Methods
@@ -38,7 +40,6 @@ class FriendsViewModel: ObservableObject {
         defer { isLoading = false }
         
         do {
-            print("[viewModel]: send req")
             try await sendFriendRequestUseCase.execute(userId: Int(userId) ?? 0)
         } catch {
             errorMessage = error.localizedDescription
@@ -52,11 +53,27 @@ class FriendsViewModel: ObservableObject {
         
         do {
             let requests = try await getPendingRequestsUseCase.execute()
-            print("[ViewModel] count \(requests.count) req")
             pendingRequests = requests
+            for index in pendingRequests.indices {
+                let request = pendingRequests[index]
+                let user = await getUser(userId: request.senderId)
+                pendingRequests[index].sender = user ?? nil
+            }
         } catch {
             errorMessage = error.localizedDescription
             showError = true
+        }
+    }
+    
+    // MARK: - Private Methods
+    func getUser(userId: Int) async -> User? {
+        do {
+            let user = try await getUserByIdUseCase.execute(userId: userId)
+            return user
+        } catch {
+            errorMessage = error.localizedDescription
+            showError = true
+            return nil
         }
     }
     

@@ -13,4 +13,6 @@ protocol AuthRepositoryProtocol {
     func register(username: String, fullname: String, email: String, password: String) async throws -> User
     
     func logout() async throws
+    
+    func getUserById(userId: Int) async throws -> User
 }

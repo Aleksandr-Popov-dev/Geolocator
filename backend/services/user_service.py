@@ -27,6 +27,15 @@ class UserService:
             )
         return UserResponse.model_validate(user)
     
+    def get_user_by_id(self, user_id: int) -> UserResponse:
+        user = self.repository.get_by_id(user_id)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"User with username {username} not found"
+            )
+        return UserResponse.model_validate(user)
+    
     def get_user_by_username_optional(self, username: str) -> Optional[UserResponse]:
         user = self.repository.get_by_username(username)
         return UserResponse.model_validate(user) if user else None

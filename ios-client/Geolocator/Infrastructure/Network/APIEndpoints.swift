@@ -42,6 +42,18 @@ struct APIEndpoints {
         )
     }
     
+    static func getUserById(userId: Int) -> Endpoint {
+//        let request = GetUserByIdRequestDTO(user_id: userId)
+        
+        return Endpoint(
+            path: "/auth/getUser/byId/\(userId)",
+            method: .get,
+            headers: nil,
+            body: nil,
+            queryItems: nil
+        )
+    }
+    
     // MARK: - Location
     static func updateLocation(location: Location) -> Endpoint {
         let request = LocationRequestDTO(

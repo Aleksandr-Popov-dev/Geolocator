@@ -22,7 +22,9 @@ struct FriendsResponseDTO: Decodable {
             id: id,
             senderId: sender_id,
             receiverId: receiver_id,
-            status: FriendRequestStatus(rawValue: status) ?? .pending
+            status: FriendRequestStatus(rawValue: status) ?? .pending,
+            sender: nil,
+            receiver: nil
         )
     }
 }

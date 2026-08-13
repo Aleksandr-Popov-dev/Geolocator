@@ -29,7 +29,7 @@ struct FriendsView: View {
                         .padding()
                 } else {
                     ForEach(viewModel.pendingRequests, id:\.id) { request in
-                        Text("запрос на добавление в друзья от: \(request.senderId)")
+                        Text("запрос на добавление в друзья от: \(request.sender?.fullname ?? "нн")")
                     }
                 }
             }

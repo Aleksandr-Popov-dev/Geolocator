@@ -23,7 +23,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             password: password
         )
         
-        let response: LoginResponseDTO = try await networkService.request(endpoint)
+        let response: AuthResponseDTO = try await networkService.request(endpoint)
         let (user, token) = response.toDomain()
         
         if let token = token {
@@ -42,7 +42,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             password: password
         )
         
-        let response: RegisterResponseDTO = try await networkService.request(endpoint)
+        let response: AuthResponseDTO = try await networkService.request(endpoint)
         let (user, token) = response.toDomain()
         
         if let token = token {
@@ -56,6 +56,15 @@ final class AuthRepository: AuthRepositoryProtocol {
     func logout() async throws {
         try tokenStorage.deleteToken()
         print("delete JWT token")
+    }
+    
+    func getUserById(userId: Int) async throws -> User {
+        let endpoint = APIEndpoints.getUserById(userId: userId)
+        let response: AuthResponseDTO = try await networkService.request(endpoint)
+        
+        let (user, _) = response.toDomain()
+        
+        return user
     }
     
     func isAuthenticated() -> Bool {
