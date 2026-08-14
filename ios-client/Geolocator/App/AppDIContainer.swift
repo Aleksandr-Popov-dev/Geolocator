@@ -84,6 +84,18 @@ final class AppDIContainer {
         return GetUserByIdUseCase(authRepository: authRepository)
     }()
     
+    private lazy var acceptFriendRequestUseCase: AcceptFriendRequestUseCase = {
+        return AcceptFriendRequestUseCase(friendsRepository: friendsRepository)
+    }()
+    
+    private lazy var rejectFriendRequestUseCase: RejectFriendRequestUseCase = {
+        return RejectFriendRequestUseCase(friendsRepository: friendsRepository)
+    }()
+    
+    private lazy var getAllFriendsUseCase: GetAllFriendsUseCase = {
+        return GetAllFriendsUseCase(friendsRepository: friendsRepository)
+    }()
+    
     
     // MARK: - View Models
     func makeRegisterViewModel(onRegisterSuccess: @escaping (User) -> Void) -> RegisterViewModel {
@@ -109,6 +121,11 @@ final class AppDIContainer {
             startTrackingLocationUseCase: startTrackingLocationUseCase,
             updateUserLocationUseCase: updateUserLocationUseCase,
             saveUserLocationUseCase: saveUserLocationUseCase,
+            acceptFriendRequestUseCase: acceptFriendRequestUseCase,
+            getPendingRequestsUseCase: getPendingRequestsUseCase,
+            getUserByIdUseCase: getUserByIdUseCase,
+            rejectFriendRequestUseCase: rejectFriendRequestUseCase,
+            getAllFriendsUseCase: getAllFriendsUseCase,
             goToFriendsView: goToFriendsView
         )
     }

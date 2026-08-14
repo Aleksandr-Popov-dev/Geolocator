@@ -12,9 +12,9 @@ protocol FriendsRepositoryProtocol {
     
     func getPendingRequests() async throws -> [FriendRequest]
     
-    func acceptRequest(_ requestId: Int) async throws
+    func acceptRequest(_ friendshipId: Int) async throws
     
-    func rejectRequest(_ requestId: Int) async throws
+    func rejectRequest(_ friendshipId: Int) async throws
     
     func getFriends() async throws -> [User]
     

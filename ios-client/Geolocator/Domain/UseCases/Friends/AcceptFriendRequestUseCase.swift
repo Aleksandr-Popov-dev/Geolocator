@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AcceptFriendRequestUseCaseProtocol {
-    func execute(_ requestId: Int) async throws
+    func execute(_ friendshipId: Int) async throws
 }
 
 final class AcceptFriendRequestUseCase: AcceptFriendRequestUseCaseProtocol {
@@ -19,9 +19,7 @@ final class AcceptFriendRequestUseCase: AcceptFriendRequestUseCaseProtocol {
         self.friendsRepository = friendsRepository
     }
     
-    func execute(_ requestId: Int) async throws {
-        try await friendsRepository.acceptRequest(requestId)
+    func execute(_ friendshipId: Int) async throws {
+        try await friendsRepository.acceptRequest(friendshipId)
     }
-    
-    
 }

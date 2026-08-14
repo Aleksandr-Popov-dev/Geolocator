@@ -16,33 +16,40 @@ struct HomeView: View {
     }
     
     var body: some View {
-        ZStack {
+        VStack {
             if let location = viewModel.currentLocation {
-                Map(initialPosition: .region(MKCoordinateRegion(
-                            center: location.coordinate,
-                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                ))) {
-                    UserAnnotation()
+                ZStack(alignment: .bottomLeading) {
+                    Map(initialPosition: .region(MKCoordinateRegion(
+                        center: location.coordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                    ))) {
+                        UserAnnotation()
+                    }
+                    .mapControls {
+                        MapUserLocationButton()
+                    }
+                    friendsScrollView()
                 }
-                .mapControls {
-                    MapUserLocationButton()
-                }
-                Button("friend") {
-                    viewModel.goToFriendViewButtonTapped()
-                }
-                .buttonStyle(.borderedProminent)
             } else {
                 Text("Получение разрешения")
             }
-            
         }
-        .task {
-            await viewModel.startTracking()
-        }
+//        .task {
+//            await viewModel.startTracking()
+//            await viewModel.loadPendingRequests()
+//            await viewModel.loadFriends()
+//        }
         .alert("Ошибка", isPresented: $viewModel.showError) {
             Button("OK") { }
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+    }
+}
+
+extension HomeView {
+    @ViewBuilder
+    func friendsScrollView() -> some View {
+        
     }
 }

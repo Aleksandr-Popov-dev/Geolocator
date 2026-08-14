@@ -90,4 +90,36 @@ struct APIEndpoints {
             queryItems: nil
         )
     }
+    
+    static func getAllFriends() -> Endpoint {
+        return Endpoint(
+            path: "/api/friends/all",
+            method: .get,
+            headers: nil,
+            body: nil,
+            queryItems: nil
+        )
+    }
+    
+    static func acceptFriendRequest(friendshipId: Int) -> Endpoint {
+        let request = AcceptFriendRequestDTO(friendship_id: friendshipId)
+        return Endpoint(
+            path: "/api/friends/accept/\(friendshipId)",
+            method: .post,
+            headers: nil,
+            body: request,
+            queryItems: nil
+        )
+    }
+    
+    static func rejectFriendRequest(friendshipId: Int) -> Endpoint {
+        let request = RejectFriendRequestDTO(friendship_id: friendshipId)
+        return Endpoint(
+            path: "/api/friends/reject/\(friendshipId)",
+            method: .post,
+            headers: nil,
+            body: request,
+            queryItems: nil
+        )
+    }
 }

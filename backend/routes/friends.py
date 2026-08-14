@@ -47,7 +47,7 @@ def get_pending_requests(
     service = FriendshipService(db)
     return service.get_pending_requests(current_user.id)
 
-@router.get("/friends", response_model=List[FriendResponse])
+@router.get("/all", response_model=List[FriendResponse])
 def get_friends(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)

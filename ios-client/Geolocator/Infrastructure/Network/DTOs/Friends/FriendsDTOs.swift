@@ -11,7 +11,15 @@ struct SendFriendRequestRequestDTO: Encodable {
     let user_id: Int
 }
 
-struct FriendsResponseDTO: Decodable {
+struct AcceptFriendRequestDTO: Encodable {
+    let friendship_id: Int
+}
+
+struct RejectFriendRequestDTO: Encodable {
+    let friendship_id: Int
+}
+
+struct FriendsRequestsResponseDTO: Decodable {
     let id: Int
     let sender_id: Int
     let receiver_id: Int
@@ -25,6 +33,23 @@ struct FriendsResponseDTO: Decodable {
             status: FriendRequestStatus(rawValue: status) ?? .pending,
             sender: nil,
             receiver: nil
+        )
+    }
+}
+
+struct FriendsResponseDTO: Decodable {
+    let id: Int
+    let username: String
+    let fullname: String
+    let email: String
+    let friendship_id: Int
+    
+    func toDomain() -> User {
+        return User(
+            id: id,
+            username: username,
+            fullname: fullname,
+            email: email
         )
     }
 }

@@ -31,7 +31,7 @@ struct AuthResponseDTO: Decodable {
     
     func toDomain() -> (user: User, token: String?) {
         let user = User(
-            id: String(id),
+            id: id,
             username: username,
             fullname: fullname,
             email: email
